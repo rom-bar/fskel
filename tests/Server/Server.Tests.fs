@@ -18,7 +18,13 @@ let server =
             Expect.contains Storage.todos validTodo "Storage should contain new todo"
     ]
 
-let all = testList "All" [ Shared.Tests.shared; server ]
+// Combine all test lists
+let all = 
+    testList "All" [ 
+        Shared.Tests.shared
+        server
+        UserTests.tests  // Add the UserTests
+    ]
 
 [<EntryPoint>]
 let main _ = runTestsWithCLIArgs [] [||] all

@@ -1,2 +1,5 @@
 Expecto
 FSharp.Core
+Microsoft.AspNetCore.TestHost
+Saturn
+Giraffe

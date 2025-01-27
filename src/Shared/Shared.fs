@@ -17,3 +17,14 @@ type ITodosApi = {
     getTodos: unit -> Async<Todo list>
     addTodo: Todo -> Async<Todo list>
 }
+
+type User = {
+    Email: string
+    Password: string
+    Token: string option
+}
+
+type IUserApi = {
+    login: string * string -> Async<Result<User, string>>
+    register: User -> Async<Result<User, string>>
+}
