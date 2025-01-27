@@ -24,7 +24,16 @@ type User = {
     Token: string option
 }
 
+// type IAuthApi = {
+//     login: string * string -> Async<User>
+//     register: User -> Async<User>
+// }
+
 type IUserApi = {
     login: string * string -> Async<Result<User, string>>
     register: User -> Async<Result<User, string>>
 }
+
+module Route =
+    let builder typeName methodName =
+        sprintf "/api/%s/%s" typeName methodName

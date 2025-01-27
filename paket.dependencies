@@ -3,11 +3,24 @@ framework: net8.0
 storage: none
 
 nuget Expecto ~> 9
+nuget Feliz.Router
 nuget SAFE.Server ~> 5
 nuget SAFE.Client ~> 5
+nuget Feliz.Bulma
+nuget Fable.Core
+nuget Fable.Elmish
+nuget Fable.Elmish.React
+nuget Fable.Elmish.Debugger
+nuget Fable.Elmish.HMR
+nuget Fable.React
+nuget Feliz
 
 nuget Fake.Core.Target ~> 5
 nuget Fake.IO.FileSystem ~> 5
 nuget Farmer ~> 1
 
 nuget Microsoft.AspNetCore.TestHost ~> 8.0
+
+nuget Fable.Remoting.Client
+nuget Fable.Browser.Dom
+nuget Fable.Promise

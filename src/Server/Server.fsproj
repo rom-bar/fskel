@@ -9,6 +9,7 @@
     <None Include="paket.references" />
     <Compile Include="Security.fs" />
     <Compile Include="Users.fs" />
+    <Compile Include="UserService.fs" />
     <Compile Include="Server.fs" />
   </ItemGroup>
   <ItemGroup>

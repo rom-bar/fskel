@@ -10,6 +10,10 @@
         <None Include="index.html" />
         <None Include="paket.references" />
         <Compile Include="Index.fs" />
+        <Compile Include="Auth.fs" />
+        <Compile Include="Profile.fs" />
+        <Compile Include="Login.fs" />
+        <Compile Include="Register.fs" />
         <Compile Include="App.fs" />
         <None Include="vite.config.mts" />
     </ItemGroup>
