@@ -32,10 +32,6 @@ jobs:
         dotnet paket restore
         npm install
 
-    - name: Build
-      run: |
-        dotnet run --project Build.fsproj -- Build
-
     - name: Test
       run: |
         dotnet run --project Build.fsproj -- RunTestsHeadless
