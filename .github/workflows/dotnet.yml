@@ -35,3 +35,7 @@ jobs:
     - name: Build
       run: |
         dotnet run --project Build.fsproj -- Build
+
+    - name: Test
+      run: |
+        dotnet run --project Build.fsproj -- RunTestsHeadless

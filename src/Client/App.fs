@@ -41,7 +41,7 @@ let HomePage = React.functionComponent(fun () ->
                 Html.text " | "
                 Html.a [
                     prop.href "#"
-                    prop.onClick (fun _ -> 
+                    prop.onClick (fun _ ->
                         window.localStorage.removeItem("user")
                         window.location.reload()
                     )
@@ -70,12 +70,12 @@ let App() =
     printfn "Current Page: %A" currentPage
 
     React.useEffectOnce(fun () ->
-        let handler = fun (e: Event) -> 
+        let handler = fun (e: Event) ->
             let newUrl = Router.currentUrl()
             printfn "URL changed to: %A" newUrl
             updateUrl(newUrl)
         window.addEventListener("hashchange", handler)
-        React.createDisposable(fun () -> 
+        React.createDisposable(fun () ->
             window.removeEventListener("hashchange", handler)
         )
     )
@@ -85,13 +85,16 @@ let App() =
         prop.style [style.padding 20]
         prop.children [
             match currentPage with
-            | Login -> 
+            | Home ->
+                printfn "Rendering Home"
+                HomePage()
+            | Login ->
                 printfn "Rendering Login"
                 Login.LoginView()
-            | Register -> 
+            | Register ->
                 printfn "Rendering Register"
                 Register.RegisterView()
-            | Profile -> 
+            | Profile ->
                 printfn "Rendering Profile"
                 Profile.ProfileView()
         ]
