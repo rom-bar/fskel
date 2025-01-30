@@ -49,6 +49,11 @@ Target.create "Build" (fun _ ->
 
     )
 
+Target.create "Test" (fun _ ->
+    run dotnet [ "test"; "Application.sln" ] "."
+
+    )
+
 Target.create "Run" (fun _ ->
     [
         "server", dotnet [ "watch"; "run"; "--no-restore" ] serverPath
