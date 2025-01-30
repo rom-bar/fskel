@@ -1,12 +1,7 @@
 module Server
 
-open SAFE
 open Saturn
 open Shared
-open Users
-open Security
-open Microsoft.AspNetCore.Authentication.JwtBearer
-open Microsoft.IdentityModel.Tokens
 open Fable.Remoting.Server
 open Fable.Remoting.Giraffe
 

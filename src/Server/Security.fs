@@ -9,7 +9,7 @@ open System.IdentityModel.Tokens.Jwt
 open Microsoft.IdentityModel.Tokens
 
 // Password hashing functions
-let private generateSalt() = 
+let private generateSalt() =
     let salt = Array.zeroCreate<byte> 16
     use rng = RandomNumberGenerator.Create()
     rng.GetBytes(salt)
@@ -39,19 +39,6 @@ let jwtSecret = "your-256-bit-secret-key-that-is-very-long-and-secure-32"  // 32
 let private key = SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
 let private credentials = SigningCredentials(key, SecurityAlgorithms.HmacSha256)
 
-// let secret =
-//     let fi = FileInfo("./temp/token.txt")
-
-//     if not fi.Exists then
-//         let passPhrase = createPassPhrase ()
-
-//         if not fi.Directory.Exists then
-//             fi.Directory.Create()
-
-//         File.WriteAllBytes(fi.FullName, passPhrase)
-
-//     File.ReadAllBytes(fi.FullName) |> System.Text.Encoding.UTF8.GetString
-
 let issuer = "rombar.io"
 
 let generateToken (email: string) =
@@ -59,7 +46,7 @@ let generateToken (email: string) =
         Claim(JwtRegisteredClaimNames.Sub, email)
         Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
     |]
-    
+
     let token = JwtSecurityToken(
         issuer = "safe-stack-app",
         audience = "safe-stack-app",
@@ -67,5 +54,5 @@ let generateToken (email: string) =
         expires = DateTime.UtcNow.AddHours(1.0),
         signingCredentials = credentials
     )
-    
-    JwtSecurityTokenHandler().WriteToken(token) 
+
+    JwtSecurityTokenHandler().WriteToken(token)
