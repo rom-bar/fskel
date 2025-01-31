@@ -61,19 +61,14 @@ let RegisterView() =
                         Password = state.Form.Password
                         Token = None
                     }
-                    let! result = userApi.register user
-                    printfn "Registration result: %A" result
-                    match result with
-                    | Ok registeredUser ->
-                        printfn "Registration successful: %A" registeredUser
-                        setState { state with IsLoading = false; Error = None }
-                        match registeredUser.Token with
-                        | Some token -> 
-                            ()
-                        | None -> ()
+                    let! response = userApi.register user
+                    match response with
+                    | { success = true; data = Some _ } ->
+                        setState { state with IsLoading = false }
                         window.location.href <- "#/login"
-                    | Error msg ->
-                        printfn "Registration error: %s" msg
+                    | { success = false; message = msg } ->
+                        setState { state with IsLoading = false; Error = Some msg }
+                    | { success = _; message = msg } ->
                         setState { state with IsLoading = false; Error = Some msg }
                 with e ->
                     setState { state with IsLoading = false; Error = Some e.Message }
@@ -94,7 +89,7 @@ let RegisterView() =
                     Bulma.control.div [
                         Bulma.input.email [
                             prop.value state.Form.Email
-                            prop.onChange (fun (v: string) -> 
+                            prop.onChange (fun (v: string) ->
                                 setState { state with Form = { state.Form with Email = v } }
                             )
                             prop.placeholder "Enter your email"
@@ -109,7 +104,7 @@ let RegisterView() =
                     Bulma.control.div [
                         Bulma.input.password [
                             prop.value state.Form.Password
-                            prop.onChange (fun (v: string) -> 
+                            prop.onChange (fun (v: string) ->
                                 setState { state with Form = { state.Form with Password = v } }
                             )
                             prop.placeholder "Enter your password"
@@ -124,7 +119,7 @@ let RegisterView() =
                     Bulma.control.div [
                         Bulma.input.password [
                             prop.value state.Form.ConfirmPassword
-                            prop.onChange (fun (v: string) -> 
+                            prop.onChange (fun (v: string) ->
                                 setState { state with Form = { state.Form with ConfirmPassword = v } }
                             )
                             prop.placeholder "Confirm your password"

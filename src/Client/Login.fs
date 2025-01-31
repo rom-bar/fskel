@@ -51,15 +51,15 @@ let LoginView() =
         async {
             setState { state with IsLoading = true; Error = None }
             try
-                let! result = userApi.login (state.Form.Email, state.Form.Password)
-                match result with
-                | Ok user ->
+                let! response = userApi.login (state.Form.Email, state.Form.Password)
+                match response with
+                | { success = true; data = Some user } ->
                     setState { state with IsLoading = false }
-                    // Store user data
                     window.localStorage.setItem("user", JSON.stringify(user))
-                    // Redirect to profile
                     window.location.href <- "#/profile"
-                | Error msg ->
+                | { success = false; message = msg } ->
+                    setState { state with IsLoading = false; Error = Some msg }
+                | { success = _; message = msg } ->
                     setState { state with IsLoading = false; Error = Some msg }
             with e ->
                 setState { state with IsLoading = false; Error = Some e.Message }
@@ -80,7 +80,7 @@ let LoginView() =
                     Bulma.control.div [
                         Bulma.input.email [
                             prop.value state.Form.Email
-                            prop.onChange (fun (v: string) -> 
+                            prop.onChange (fun (v: string) ->
                                 setState { state with Form = { state.Form with Email = v } }
                             )
                             prop.placeholder "Enter your email"
@@ -95,7 +95,7 @@ let LoginView() =
                     Bulma.control.div [
                         Bulma.input.password [
                             prop.value state.Form.Password
-                            prop.onChange (fun (v: string) -> 
+                            prop.onChange (fun (v: string) ->
                                 setState { state with Form = { state.Form with Password = v } }
                             )
                             prop.placeholder "Enter your password"

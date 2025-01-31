@@ -6,9 +6,21 @@ type User = {
     Token: string option
 }
 
+type ApiError = {
+    code: int
+    details: string
+}
+
+type ApiResponse<'T> = {
+    success: bool
+    message: string
+    data: 'T option
+    error: ApiError option
+}
+
 type IUserApi = {
-    login: string * string -> Async<Result<User, string>>
-    register: User -> Async<Result<User, string>>
+    login: string * string -> Async<ApiResponse<User>>
+    register: User -> Async<ApiResponse<User>>
 }
 
 module Route =
